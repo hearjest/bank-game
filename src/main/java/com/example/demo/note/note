@@ -1,0 +1,14 @@
+when a user wants to buy an item, 
+if it is a commoditity then, attempt to buy the minimum of the lowest sell order price and the user's maximum acceptable price
+sorted by earliest post date
+
+when user wants to sell an item,
+if it is a commoditity, then
+item should be removed from invertory and put into escrow account
+
+
+
+There are no buy orders for Unique items, they are directly purchased
+
+missing logic for this stage:
+buying a commoditity item, needs price matching sorted by date
