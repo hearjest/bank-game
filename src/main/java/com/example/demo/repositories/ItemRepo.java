@@ -6,7 +6,6 @@ import com.example.demo.entities.Item;
 import com.example.demo.entities.ItemMeta;
 
 import java.util.List;
-import java.util.Optional;
 
 
 public interface ItemRepo extends JpaRepository<Item,Long>{
@@ -16,7 +15,10 @@ public interface ItemRepo extends JpaRepository<Item,Long>{
 
     List<Item> findByOwnerIdAndItemSeries(long ownerId, ItemMeta itemSeries);
 
-    List<Item> findByOwnerIdAndItemId(long ownerId, long itemId);
+    //if currOrder is null, it means the item isn't in an open listing (not in escrow)
+    List<Item> findByOwnerIdAndItemSeriesAndCurrOrderIsNull(long ownerId, ItemMeta itemSeries);
+
+    Item findByOwnerIdAndId(long ownerId, long id);
     
 
     

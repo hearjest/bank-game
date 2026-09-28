@@ -1,5 +1,8 @@
 package com.example.demo.entities;
 
+import java.util.Optional;
+
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,7 +17,11 @@ public class Item {
     @JoinColumn(name="item_series_id",referencedColumnName = "id")
     private ItemMeta itemSeries;
 
-    
+
+    @ManyToOne
+    @JoinColumn(name="order_id")
+    @Nullable 
+    Order currOrder;
 
     Item(){
     }
@@ -24,6 +31,14 @@ public class Item {
         this.ownerId = ownerId;
     }
 
+
+    public Order getCurrOrder(){
+        return this.currOrder;
+    }
+
+    public void setCurrOrder(Order newOrder){
+        this.currOrder=newOrder;
+    }
 
 
     public long getId() {

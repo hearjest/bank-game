@@ -12,9 +12,9 @@ public class DemoApplication {
         SpringApplication.run(DemoApplication.class, args);
     }
 
-    @Bean
-    public CommandLineRunner init(DemoSeeder seeder) {
-        return args -> seeder.seed();
-    }
+    // @Bean
+    // public CommandLineRunner init(DemoSeeder seeder) {
+    //     return args -> seeder.seed();
+    // }
 
 }

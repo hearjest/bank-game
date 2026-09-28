@@ -11,7 +11,7 @@ import com.example.demo.entities.AccountEntry;
 import com.example.demo.entities.Item;
 import com.example.demo.entities.ItemMeta;
 import com.example.demo.entities.Order;
-import com.example.demo.entities.Order.ORDER_TYPE;
+import com.example.demo.enums.ORDER_TYPE;
 import com.example.demo.repositories.AccountEntryRepo;
 import com.example.demo.repositories.AccountRepo;
 import com.example.demo.repositories.ItemMetaRepo;
@@ -82,18 +82,15 @@ public class DemoSeeder {
             irp.save(mannCoKey);
         }
 
-        Item keyy = ir.findByOwnerIdAndItemSeries(alicee.getId(), mannCoKey).orElse(null);
+        List<Item> aliceKeys = ir.findByOwnerIdAndItemSeries(alicee.getId(), mannCoKey);
+        Item keyy = aliceKeys.isEmpty() ? null : aliceKeys.get(0);
         if (keyy == null) {
             keyy = new Item(mannCoKey, alicee.getId());
             ir.save(keyy);
         }
 
         if (keyy.getOwnerId() == alicee.getId()) {
-            Order ord = new Order();
-            ord.setPoster(alicee);
-            ord.setItem(keyy);
-            ord.setType(ORDER_TYPE.SELL);
-            ord.setPrice(10);
+            Order ord = new Order(alicee, List.of(keyy), ORDER_TYPE.SELL, 10, mannCoKey);
             ord.setClient(bobbbb);
             or.save(ord);
             transactionService.completeTransaction(ord);

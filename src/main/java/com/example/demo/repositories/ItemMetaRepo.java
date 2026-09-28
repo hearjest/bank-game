@@ -8,5 +8,4 @@ public interface ItemMetaRepo extends JpaRepository<ItemMeta,Long>{
     ItemMeta findByName(String name);
     ItemMeta findByGameId(Long gameId);
 
-
 }

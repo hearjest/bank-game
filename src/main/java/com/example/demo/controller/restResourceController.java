@@ -16,6 +16,7 @@ import com.example.demo.repositories.ItemMetaRepo;
 import com.example.demo.repositories.ItemRepo;
 import com.example.demo.repositories.OrderRepo;
 import com.example.demo.service.TransactionService;
+import com.example.demo.enums.ORDER_STATUS;
 import com.example.demo.enums.ORDER_TYPE;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -99,39 +100,37 @@ public class restResourceController {
         public Long accountId;
     }
 
-    public static class OrderResponse{
+        public static class OrderResponse{
         public long orderId;
         public Long posterId;
         public Long clientId;
-        public Long itemId;
         public Long itemMetaId;
         public String name;
         public String desc;
+        public int quantity;
         public long price;
         public String type;
-        public boolean completed;
+        public ORDER_STATUS status;
 
         public static OrderResponse from(Order o) {
             OrderResponse r = new OrderResponse();
             r.orderId = o.getOrderId();
             r.posterId = o.getPoster() != null ? o.getPoster().getId() : null;
             r.clientId = o.getClient() != null ? o.getClient().getId() : null;
-            Item item = o.getItem();
-            if (item != null) {
-                r.itemId = item.getId();
-                ItemMeta itemSeries = item.getItemSeries();
-                if (itemSeries != null) {
-                    r.itemMetaId = itemSeries.getId();
-                    r.name = itemSeries.getName();
-                    r.desc = itemSeries.getDesc();
-                }
+            ItemMeta itemMeta = o.getItemMeta();
+            if (itemMeta != null) {
+                r.itemMetaId = itemMeta.getId();
+                r.name = itemMeta.getName();
+                r.desc = itemMeta.getDesc();
             }
+            r.quantity = o.getRemainingQuantity();
             r.price = o.getPrice();
             r.type = o.getType().name();
-            r.completed = o.isCompleted();
+            r.status = o.getStatus();
             return r;
         }
-    }
+
+}
 
 }
 

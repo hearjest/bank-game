@@ -12,3 +12,11 @@ There are no buy orders for Unique items, they are directly purchased
 
 missing logic for this stage:
 buying a commoditity item, needs price matching sorted by date
+
+
+need to paginate on items so dont query all items at once
+
+
+to do:
+change Items in Order to be a list
+in transactionservice, run loop through the maximum allowed quantity and update filledQuantity
